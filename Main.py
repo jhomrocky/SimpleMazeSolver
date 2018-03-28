@@ -1,10 +1,20 @@
 PATH = "_"
-START = "_"
+START = "S"
 VISITED = "."
-SOLUTION = "o"
+SOLUTION = ord('a')
+
+
+def get_solution_char():
+    global SOLUTION
+    if SOLUTION > ord('z'):
+        SOLUTION = ord('a')
+    else:
+        SOLUTION += 1
+    return chr(SOLUTION)
 
 
 class Maze:
+
     def __init__(self, ascii_maze):
         # splits maze string into separate values on each new line
         # uses list comp. to create 'matrix' out of maze
@@ -29,16 +39,16 @@ class Maze:
             self.maze[y][x] = VISITED
             # uses recursion to check paths by checking each direction and making a decision off that
             try:
-                if (self.solve_maze(x+1, y) or
-                        self.solve_maze(x-1, y) or
-                        self.solve_maze(x, y+1) or
-                        self.solve_maze(x, y-1)):
-                    self.maze[y][x] = SOLUTION
+                if (self.solve_maze(x + 1, y) or
+                        self.solve_maze(x - 1, y) or
+                        self.solve_maze(x, y - 1) or
+                        self.solve_maze(x, y + 1)):
+                    self.maze[y][x] = get_solution_char()
                     return True
             # this exception is what occurs when the program tries to leave the maze (aka it found the exit)
             # also marks it
             except IndexError:
-                self.maze[y][x] = SOLUTION
+                self.maze[y][x] = get_solution_char()
                 return True
         return False
 
@@ -53,4 +63,10 @@ if __name__ == "__main__":
         maze = Maze(open('maze').read())
     # prints string representation of maze to replace "visited" areas (. char used for testing) with original "_"
     if maze.solve_maze():
-        print(str(maze).replace(".", "_"))
+
+        # converting to string allows for easy replacement of things
+        maze = str(maze)
+        maze = maze.replace(".", "_")
+    print(maze)
+
+
