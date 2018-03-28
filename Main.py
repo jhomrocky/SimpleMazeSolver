@@ -1,16 +1,5 @@
-
-ASCII_MAZE = """
-###S###
-#_____#
-#_##_##
-#_##__#
-#_##__#
-#E#####
-"""
-
 PATH = "_"
 START = "_"
-EXIT = "E"
 VISITED = "."
 SOLUTION = "o"
 
@@ -20,31 +9,37 @@ class Maze:
         # splits maze string into separate values on each new line
         # uses list comp. to create 'matrix' out of maze
         self.maze = [list(row) for row in ascii_maze.splitlines()]
-        # finds index of starting cells by iterating through to find 'S'
-        # puts into list, finds the index (position/coordinate) set to '1' since all others are 0 (false)
+        # finds index first '_' character which denotes the beginning
         self.start_y = [row.count(START) for row in self.maze].index(1)
-        # finds position where 'S' is located within the 'y' line which returns the index position
+        # finds position where '_' is located within the 'y' line which returns the index position
         self.start_x = self.maze[self.start_y].index(START)
 
     # returns string representation of maze object, joining maze elements passed in as parameters
-    # used to print maze with 'cells'
+    # used to print maze with 'cells' and be user friendly
     def __repr__(self):
         return "\n".join("".join(row) for row in self.maze)
 
     def solve_maze(self, x=None, y=None):
+        # assigns starting (x,y) position
         if x is None:
             x, y = self.start_x, self.start_y
+        # checks if the coordinate is in the path/start
         if self.maze[y][x] in (PATH, START):
+            # marks spot as 'visited' for recursion check
             self.maze[y][x] = VISITED
-            if (self.solve_maze(x+1, y) or
-                    self.solve_maze(x-1, y) or
-                    self.solve_maze(x, y+1) or
-                    self.solve_maze(x, y-1)):
+            # uses recursion to check paths by checking each direction and making a decision off that
+            try:
+                if (self.solve_maze(x+1, y) or
+                        self.solve_maze(x-1, y) or
+                        self.solve_maze(x, y+1) or
+                        self.solve_maze(x, y-1)):
+                    self.maze[y][x] = SOLUTION
+                    return True
+            # this exception is what occurs when the program tries to leave the maze (aka it found the exit)
+            # also marks it
+            except IndexError:
                 self.maze[y][x] = SOLUTION
                 return True
-        elif self.maze[y][x] == EXIT:
-            self.maze[y][x] = SOLUTION
-            return True
         return False
 
 
