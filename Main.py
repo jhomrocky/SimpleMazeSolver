@@ -1,12 +1,13 @@
 PATH = "_"
-START = "S"
+START = 'S'
 VISITED = "."
-SOLUTION = ord('a')
+# using ord required me to start it at the char before a
+SOLUTION = ord('`')
 
 
 def get_solution_char():
     global SOLUTION
-    if SOLUTION > ord('z'):
+    if SOLUTION >= ord('z'):
         SOLUTION = ord('a')
     else:
         SOLUTION += 1
@@ -23,6 +24,9 @@ class Maze:
         self.start_y = [row.count(START) for row in self.maze].index(1)
         # finds position where '_' is located within the 'y' line which returns the index position
         self.start_x = self.maze[self.start_y].index(START)
+        print(self.start_x)
+        print(self.start_y)
+        print(self.maze[0:0])
 
     # returns string representation of maze object, joining maze elements passed in as parameters
     # used to print maze with 'cells' and be user friendly
@@ -63,10 +67,8 @@ if __name__ == "__main__":
         maze = Maze(open('maze').read())
     # prints string representation of maze to replace "visited" areas (. char used for testing) with original "_"
     if maze.solve_maze():
-
         # converting to string allows for easy replacement of things
         maze = str(maze)
         maze = maze.replace(".", "_")
     print(maze)
-
 
