@@ -9,7 +9,7 @@ ASCII_MAZE = """
 """
 
 PATH = "_"
-START = "S"
+START = "_"
 EXIT = "E"
 VISITED = "."
 SOLUTION = "o"
@@ -36,8 +36,10 @@ class Maze:
             x, y = self.start_x, self.start_y
         if self.maze[y][x] in (PATH, START):
             self.maze[y][x] = VISITED
-            if (self.solve_maze(x+1, y) or self.solve_maze(x-1, y) or
-                    self.solve_maze(x, y+1) or self.solve_maze(x, y-1)):
+            if (self.solve_maze(x+1, y) or
+                    self.solve_maze(x-1, y) or
+                    self.solve_maze(x, y+1) or
+                    self.solve_maze(x, y-1)):
                 self.maze[y][x] = SOLUTION
                 return True
         elif self.maze[y][x] == EXIT:
@@ -51,9 +53,9 @@ if __name__ == "__main__":
     # for checking mazes through terminal
     if len(sys.argv) > 1:
         maze = Maze(open(sys.argv[1]).read())
-    # if none available, defaults to ASCII maze predefined above
+    # if none available, defaults to 'maze' text file
     else:
-        maze = Maze(ASCII_MAZE)
+        maze = Maze(open('maze').read())
     # prints string representation of maze to replace "visited" areas (. char used for testing) with original "_"
     if maze.solve_maze():
         print(str(maze).replace(".", "_"))
