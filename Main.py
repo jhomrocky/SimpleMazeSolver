@@ -67,5 +67,5 @@ if __name__ == "__main__":
         # converting to string allows for easy replacement of things
         maze = str(maze)
         maze = maze.replace(".", "_")
-    print(maze)
+        print(maze)
 
