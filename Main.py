@@ -1,5 +1,5 @@
 PATH = "_"
-START = 'S'
+START = '_'
 VISITED = "."
 # using ord required me to start it at the char before a
 SOLUTION = ord('`')
