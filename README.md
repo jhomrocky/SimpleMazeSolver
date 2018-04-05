@@ -3,12 +3,12 @@ Program that takes a .txt file with a maze (built of # and _ characters) and fin
 
 Maze needs to be in the following general format:
 
-###_##
-#_____#
-#_##_##
-#_##__#
-#_#####
-#_#####
+###\_###  
+#\_\_\_\_\_#  
+#\_##\_##  
+#\_##\_\_#  
+#\_#####  
+#\_#####  
 
 With the Entrance and Exit being the Top and Bottom exits, respectively (top = Entrance, bottom = Exit).
 
