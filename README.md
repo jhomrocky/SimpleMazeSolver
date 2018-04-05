@@ -12,7 +12,7 @@ Maze needs to be in the following general format:
 ```
 With the Entrance and Exit being the Top and Bottom exits, respectively (top = Entrance, bottom = Exit).
 
-Path must be made of underscores ("_") or change the 'PATH' variable to PATH = " " instead of PATH = "_"
+Path must be made of underscores ("\_") or change the 'PATH' variable to PATH = " " instead of PATH = "\_"
 
 Walls can be anything.
 
